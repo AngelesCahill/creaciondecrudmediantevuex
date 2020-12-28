@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # ejerciciofb002
 
 ## Project setup
@@ -27,3 +28,6 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+=======
+# creaciondecrudmediantevuex
+>>>>>>> f1663ebb6c49d2dfff13ca450eb8c88fae86c4b0
