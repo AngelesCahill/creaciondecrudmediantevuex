@@ -6,7 +6,7 @@
 
 <script>
     export default {
-        name: 'ListadoUsuarios'
+        name:'RegistroUsuario'
     }
 </script>
 
