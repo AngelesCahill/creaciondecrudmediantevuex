@@ -9,7 +9,7 @@ import firebase from 'firebase';
 
 firebase.initializeApp(firebaseConfig);
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 
 new Vue({
   router,

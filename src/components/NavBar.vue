@@ -21,7 +21,7 @@
                 <router-link to="/login" class="nav-link active" :class="{name: 'Login'}">Login</router-link> 
                 </li>
                 <li class="nav-item">
-                <a class="nav-link logOut" disabled="false" @click.prevent="signOut">Sign Out</a> 
+                <a class="nav-link" disabled="false" @click.prevent="signOut">Sign Out</a> 
                 </li>
             </ul>
             </div>
@@ -40,14 +40,14 @@ export default {
         signOut(){
             firebase.auth().signOut().then(()=> {
                    Swal.fire({
-                title: 'Tu sesión se ha cerrado exitosamente',
-                showClass: {
-                    popup: 'animate__animated animate__fadeInDown'
-                },
-                hideClass: {
-                    popup: 'animate__animated animate__fadeOutUp'
-                }
-                })
+                        title: 'Tu sesión se ha cerrado exitosamente',
+                        showClass: {
+                            popup: 'animate__animated animate__fadeInDown'
+                        },
+                        hideClass: {
+                            popup: 'animate__animated animate__fadeOutUp'
+                        }
+                        })
             }).catch((error)=> {
                 console.error(error);
                 Swal.fire({
