@@ -1,14 +1,6 @@
 <template>
     <div>
-        <form>
-            <div class="mb-3  col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 mx-auto" @submit.prevent="ingresar">
-                <label for="exampleInputFoto" class="form-label">Sube tu Avatar</label>
-                <input type="text" class="form-control" id="exampleInputFoto" v-model="photoURL">
-            </div>
-            <div class="mb-3  col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 mx-auto">
-                <label for="exampleInputNombre" class="form-label">Email address</label>
-                <input type="text" class="form-control" id="exampleInputNombre" v-model="displayName">
-            </div>
+        <form @submit.prevent="loginUser">
             <div class="mb-3  col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 mx-auto">
                 <label for="exampleInputEmail1" class="form-label">Email address</label>
                 <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" v-model="email">
@@ -25,42 +17,46 @@
 </template>
 
 <script>
-    import firebase from 'firebase';
+import firebase from 'firebase';
+import Swal from 'sweetalert2';
 
-    export default {
-        name: 'Login',
-        data(){
-            return {
-                nombre: '',
-                email: '',
-                password: '',
-                urlPhoto: ''
-            }
-        },
-        methods: {
-            ingresar(){
-               if (this.email && this.password.length >= 6) {
-                // metodo que permite ingresar con usuario(correo electrónico) y contraseña
-            firebase.auth().signInWithEmailAndPassword(this.email, this.password)
+export default {
+    name: 'Login',
+    data(){
+        return {
+            email: '',
+            password: '',
+        }
+    },
+    methods: {
+        loginUser(){
+            if (this.email && this.password.length >= 6) {
+                firebase.auth().signInWithEmailAndPassword(this.email, this.password)
                 .then((result) => {
                     console.log(result.user.uid);
-                    console.log(result.user.photoURL);
-                    console.log(result.user.email);
                     console.log(result.user.displayName);
+                    console.log(result.user.email);
                     console.log(result.user.emailVerified);
-                    console.log("login");
-                    this.$router.push({name: 'Home'}); // enviamos al usuario a la vista de home
+                    console.log(result.user.photoURL);
+                    Swal.fire('Bienvenido'+' '+this.email);
+                    this.$router.push({name:'Home'})
+               
                 })
                 .catch((error) => {
                     console.error(error.code);
                     console.error(error.message);
                 });
-            } else {
-            console.log("no se puede");
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Debes registrarte primero',
+                })
             }
+        
         }
-        }
-    }
+    },
+}
 </script>
 
 <style>

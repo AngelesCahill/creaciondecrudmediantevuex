@@ -15,7 +15,13 @@
                 <router-link to="/listadoUsuarios" class="nav-link active">Listado Usuarios</router-link> 
                 </li>
                 <li class="nav-item">
+                <router-link to="/registro" class="nav-link active">Registrarse</router-link> 
+                </li>
+                <li class="nav-item">
                 <router-link to="/login" class="nav-link active" :class="{name: 'Login'}">Login</router-link> 
+                </li>
+                <li class="nav-item">
+                <a class="nav-link logOut" disabled="false" @click.prevent="signOut">Sign Out</a> 
                 </li>
             </ul>
             </div>
@@ -25,9 +31,34 @@
 </template>
 
 <script>
-    export default {
-        name: 'NavBar'
-    }
+import firebase from 'firebase';
+import Swal from 'sweetalert2';
+
+export default {
+    name: 'NavBar',
+    methods: {
+        signOut(){
+            firebase.auth().signOut().then(()=> {
+                   Swal.fire({
+                title: 'Tu sesión se ha cerrado exitosamente',
+                showClass: {
+                    popup: 'animate__animated animate__fadeInDown'
+                },
+                hideClass: {
+                    popup: 'animate__animated animate__fadeOutUp'
+                }
+                })
+            }).catch((error)=> {
+                console.error(error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Ha ocurrido un error, intentalo nuevamente'
+                })
+            });
+        }
+    },
+}
 </script>
 
 <style>
